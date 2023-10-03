@@ -17,7 +17,7 @@ def predict(predictions: np.ndarray, labels: list) -> list:
         return labels[np.argmax(predictions.reshape(1, len(predictions)))]
 
 
-def predict_mtcnn(frame: np.ndarray, device) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def predict_mtcnn(frame: np.ndarray, device: torch.device) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     mtcnn = MTCNN(
         select_largest=True,
         min_face_size=20,
@@ -54,7 +54,6 @@ def tensorflow_sess() -> None:
     # Check device for MTCNN
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print('Running on device: {}'.format(device))
-    print(type(device))
 
     graph_path = 'tf_files/retrained_graph.pb'
     labels_path = 'tf_files/retrained_labels.txt'
